@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3307
--- Generation Time: Aug 31, 2020 at 03:32 PM
+-- Generation Time: Sep 01, 2020 at 03:19 PM
 -- Server version: 10.4.13-MariaDB
 -- PHP Version: 7.4.8
 
@@ -99,7 +99,7 @@ CREATE TABLE `combos` (
 --
 
 CREATE TABLE `customers` (
-  `id` bigint(20) UNSIGNED NOT NULL,
+  `id` int(11) NOT NULL,
   `code` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -108,8 +108,8 @@ CREATE TABLE `customers` (
   `country` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `address` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `type` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `created_at` timestamp NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -117,8 +117,8 @@ CREATE TABLE `customers` (
 --
 
 INSERT INTO `customers` (`id`, `code`, `email`, `name`, `city`, `phone`, `country`, `address`, `type`, `created_at`, `updated_at`) VALUES
-(0, 'wlk001', 'vong@chong.com', 'walkincustomer', 'dubai', '990245', 'UAE', 'suite:2', '1', NULL, NULL),
-(1, 'wlk001', 'vong@chong.com', 'walkincustomer', 'dubai', '990245', 'UAE', 'suite:2', '1', NULL, NULL);
+(1, 'cus001', 'vong@chong.com', 'Walk In Customer', 'Dubai', '99015646', 'UAE', 'Suite:34, Alipur road', 'Premium', NULL, NULL),
+(2, 'cus002', 'abc@cde.def', 'Run In Customer', 'Dohar', '99086846', 'UAE', 'Suite:4, Dohar paradise', 'General', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -325,15 +325,25 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`id`, `customer_id`, `order_details`, `total`, `created_at`, `updated_at`) VALUES
-(1, 0, 'a:1:{i:0;a:3:{s:4:\"item\";a:3:{s:4:\"code\";s:6:\"101252\";s:4:\"name\";s:25:\"AL DHAFRA DATES 1KG DABBA\";s:5:\"price\";d:13.65;}s:13:\"numberOfItems\";i:1;s:7:\"editing\";b:0;}}', 14.54, '2020-08-31 07:17:22', '2020-08-31 07:17:22'),
-(2, 0, 'a:1:{i:0;a:3:{s:4:\"item\";a:3:{s:4:\"code\";s:6:\"101252\";s:4:\"name\";s:25:\"AL DHAFRA DATES 1KG DABBA\";s:5:\"price\";d:13.65;}s:13:\"numberOfItems\";i:1;s:7:\"editing\";b:0;}}', 14.54, '2020-08-31 07:28:18', '2020-08-31 07:28:18'),
-(3, 0, 'a:1:{i:0;a:3:{s:4:\"item\";a:3:{s:4:\"code\";s:6:\"101252\";s:4:\"name\";s:25:\"AL DHAFRA DATES 1KG DABBA\";s:5:\"price\";d:13.65;}s:13:\"numberOfItems\";i:1;s:7:\"editing\";b:0;}}', 14.54, '2020-08-31 07:28:49', '2020-08-31 07:28:49'),
-(4, 0, 'a:1:{i:0;a:3:{s:4:\"item\";a:3:{s:4:\"code\";s:6:\"101252\";s:4:\"name\";s:25:\"AL DHAFRA DATES 1KG DABBA\";s:5:\"price\";d:13.65;}s:13:\"numberOfItems\";i:1;s:7:\"editing\";b:0;}}', 14.54, '2020-08-31 07:29:03', '2020-08-31 07:29:03'),
-(5, 0, 'a:1:{i:0;a:3:{s:4:\"item\";a:3:{s:4:\"code\";s:6:\"101252\";s:4:\"name\";s:25:\"AL DHAFRA DATES 1KG DABBA\";s:5:\"price\";d:13.65;}s:13:\"numberOfItems\";i:1;s:7:\"editing\";b:0;}}', 14.54, '2020-08-31 07:29:20', '2020-08-31 07:29:20'),
-(6, 0, 'a:1:{i:0;a:3:{s:4:\"item\";a:3:{s:4:\"code\";s:6:\"101252\";s:4:\"name\";s:25:\"AL DHAFRA DATES 1KG DABBA\";s:5:\"price\";d:13.65;}s:13:\"numberOfItems\";i:1;s:7:\"editing\";b:0;}}', 14.54, '2020-08-31 07:29:36', '2020-08-31 07:29:36'),
-(7, 0, 'a:1:{i:0;a:3:{s:4:\"item\";a:3:{s:4:\"code\";s:6:\"101252\";s:4:\"name\";s:25:\"AL DHAFRA DATES 1KG DABBA\";s:5:\"price\";d:13.65;}s:13:\"numberOfItems\";i:1;s:7:\"editing\";b:0;}}', 14.54, '2020-08-31 07:30:03', '2020-08-31 07:30:03'),
-(8, 0, 'a:1:{i:0;a:3:{s:4:\"item\";a:3:{s:4:\"code\";s:6:\"101252\";s:4:\"name\";s:25:\"AL DHAFRA DATES 1KG DABBA\";s:5:\"price\";d:13.65;}s:13:\"numberOfItems\";i:1;s:7:\"editing\";b:0;}}', 14.54, '2020-08-31 07:30:08', '2020-08-31 07:30:08'),
-(9, 0, 'a:1:{i:0;a:3:{s:4:\"item\";a:3:{s:4:\"code\";s:6:\"101252\";s:4:\"name\";s:25:\"AL DHAFRA DATES 1KG DABBA\";s:5:\"price\";d:13.65;}s:13:\"numberOfItems\";i:1;s:7:\"editing\";b:0;}}', 14.54, '2020-08-31 07:31:02', '2020-08-31 07:31:02');
+(1, 1, 'a:1:{i:0;a:3:{s:4:\"item\";a:3:{s:4:\"code\";s:6:\"101252\";s:4:\"name\";s:25:\"AL DHAFRA DATES 1KG DABBA\";s:5:\"price\";d:13.65;}s:13:\"numberOfItems\";i:2;s:7:\"editing\";b:0;}}', 29.07, '2020-09-01 00:48:08', '2020-09-01 00:48:08'),
+(2, 1, 'a:1:{i:0;a:3:{s:4:\"item\";a:3:{s:4:\"code\";s:6:\"101252\";s:4:\"name\";s:25:\"AL DHAFRA DATES 1KG DABBA\";s:5:\"price\";d:13.65;}s:13:\"numberOfItems\";i:1;s:7:\"editing\";b:0;}}', 14.54, '2020-09-01 00:48:32', '2020-09-01 00:48:32'),
+(3, 1, 'a:1:{i:0;a:3:{s:4:\"item\";a:3:{s:4:\"code\";s:6:\"101252\";s:4:\"name\";s:25:\"AL DHAFRA DATES 1KG DABBA\";s:5:\"price\";d:13.65;}s:13:\"numberOfItems\";i:1;s:7:\"editing\";b:0;}}', 14.54, '2020-09-01 01:01:08', '2020-09-01 01:01:08'),
+(4, 1, 'a:1:{i:0;a:3:{s:4:\"item\";a:3:{s:4:\"code\";s:6:\"101252\";s:4:\"name\";s:25:\"AL DHAFRA DATES 1KG DABBA\";s:5:\"price\";d:13.65;}s:13:\"numberOfItems\";i:1;s:7:\"editing\";b:0;}}', 14.54, '2020-09-01 01:02:03', '2020-09-01 01:02:03'),
+(5, 1, 'a:1:{i:0;a:3:{s:4:\"item\";a:3:{s:4:\"code\";s:6:\"101252\";s:4:\"name\";s:25:\"AL DHAFRA DATES 1KG DABBA\";s:5:\"price\";d:13.65;}s:13:\"numberOfItems\";i:1;s:7:\"editing\";b:0;}}', 14.54, '2020-09-01 01:02:48', '2020-09-01 01:02:48'),
+(6, 1, 'a:1:{i:0;a:3:{s:4:\"item\";a:3:{s:4:\"code\";s:6:\"101252\";s:4:\"name\";s:25:\"AL DHAFRA DATES 1KG DABBA\";s:5:\"price\";d:13.65;}s:13:\"numberOfItems\";i:1;s:7:\"editing\";b:0;}}', 14.54, '2020-09-01 01:02:56', '2020-09-01 01:02:56'),
+(7, 1, 'a:1:{i:0;a:3:{s:4:\"item\";a:3:{s:4:\"code\";s:6:\"101252\";s:4:\"name\";s:25:\"AL DHAFRA DATES 1KG DABBA\";s:5:\"price\";d:13.65;}s:13:\"numberOfItems\";i:1;s:7:\"editing\";b:0;}}', 14.54, '2020-09-01 01:03:24', '2020-09-01 01:03:24'),
+(8, 1, 'a:1:{i:0;a:3:{s:4:\"item\";a:3:{s:4:\"code\";s:6:\"101252\";s:4:\"name\";s:25:\"AL DHAFRA DATES 1KG DABBA\";s:5:\"price\";d:13.65;}s:13:\"numberOfItems\";i:1;s:7:\"editing\";b:0;}}', 14.54, '2020-09-01 01:04:26', '2020-09-01 01:04:26'),
+(9, 1, 'a:1:{i:0;a:3:{s:4:\"item\";a:3:{s:4:\"code\";s:6:\"101252\";s:4:\"name\";s:25:\"AL DHAFRA DATES 1KG DABBA\";s:5:\"price\";d:13.65;}s:13:\"numberOfItems\";i:1;s:7:\"editing\";b:0;}}', 14.54, '2020-09-01 01:04:55', '2020-09-01 01:04:55'),
+(10, 1, 'a:1:{i:0;a:3:{s:4:\"item\";a:3:{s:4:\"code\";s:6:\"101252\";s:4:\"name\";s:25:\"AL DHAFRA DATES 1KG DABBA\";s:5:\"price\";d:13.65;}s:13:\"numberOfItems\";i:1;s:7:\"editing\";b:0;}}', 14.54, '2020-09-01 01:05:39', '2020-09-01 01:05:39'),
+(11, 2, 'a:1:{i:0;a:3:{s:4:\"item\";a:3:{s:4:\"code\";s:6:\"101252\";s:4:\"name\";s:25:\"AL DHAFRA DATES 1KG DABBA\";s:5:\"price\";d:13.65;}s:13:\"numberOfItems\";i:1;s:7:\"editing\";b:0;}}', 14.54, '2020-09-01 01:06:50', '2020-09-01 01:06:50'),
+(12, 1, 'a:1:{i:0;a:3:{s:4:\"item\";a:3:{s:4:\"code\";s:6:\"101252\";s:4:\"name\";s:25:\"AL DHAFRA DATES 1KG DABBA\";s:5:\"price\";d:13.65;}s:13:\"numberOfItems\";i:1;s:7:\"editing\";b:0;}}', 14.54, '2020-09-01 01:07:42', '2020-09-01 01:07:42'),
+(13, 1, 'a:1:{i:0;a:3:{s:4:\"item\";a:3:{s:4:\"code\";s:6:\"101252\";s:4:\"name\";s:25:\"AL DHAFRA DATES 1KG DABBA\";s:5:\"price\";d:13.65;}s:13:\"numberOfItems\";i:1;s:7:\"editing\";b:0;}}', 14.54, '2020-09-01 01:07:54', '2020-09-01 01:07:54'),
+(14, 2, 'a:1:{i:0;a:3:{s:4:\"item\";a:3:{s:4:\"code\";s:6:\"101252\";s:4:\"name\";s:25:\"AL DHAFRA DATES 1KG DABBA\";s:5:\"price\";d:13.65;}s:13:\"numberOfItems\";i:1;s:7:\"editing\";b:0;}}', 14.54, '2020-09-01 01:08:50', '2020-09-01 01:08:50'),
+(15, 1, 'a:1:{i:0;a:3:{s:4:\"item\";a:3:{s:4:\"code\";s:6:\"101252\";s:4:\"name\";s:25:\"AL DHAFRA DATES 1KG DABBA\";s:5:\"price\";d:13.65;}s:13:\"numberOfItems\";i:1;s:7:\"editing\";b:0;}}', 14.54, '2020-09-01 01:09:16', '2020-09-01 01:09:16'),
+(16, 2, 'a:1:{i:0;a:3:{s:4:\"item\";a:3:{s:4:\"code\";s:6:\"101252\";s:4:\"name\";s:25:\"AL DHAFRA DATES 1KG DABBA\";s:5:\"price\";d:13.65;}s:13:\"numberOfItems\";i:1;s:7:\"editing\";b:0;}}', 14.54, '2020-09-01 01:09:37', '2020-09-01 01:09:37'),
+(17, 1, 'a:1:{i:0;a:3:{s:4:\"item\";a:3:{s:4:\"code\";s:6:\"101252\";s:4:\"name\";s:25:\"AL DHAFRA DATES 1KG DABBA\";s:5:\"price\";d:13.65;}s:13:\"numberOfItems\";i:1;s:7:\"editing\";b:0;}}', 14.54, '2020-09-01 01:10:10', '2020-09-01 01:10:10'),
+(18, 1, 'a:1:{i:0;a:3:{s:4:\"item\";a:3:{s:4:\"code\";s:6:\"101252\";s:4:\"name\";s:25:\"AL DHAFRA DATES 1KG DABBA\";s:5:\"price\";d:13.65;}s:13:\"numberOfItems\";i:1;s:7:\"editing\";b:0;}}', 14.54, '2020-09-01 01:10:30', '2020-09-01 01:10:30'),
+(19, 1, 'a:1:{i:0;a:3:{s:4:\"item\";a:3:{s:4:\"code\";s:6:\"101252\";s:4:\"name\";s:25:\"AL DHAFRA DATES 1KG DABBA\";s:5:\"price\";d:13.65;}s:13:\"numberOfItems\";i:1;s:7:\"editing\";b:0;}}', 14.54, '2020-09-01 01:10:57', '2020-09-01 01:10:57');
 
 -- --------------------------------------------------------
 
@@ -964,6 +974,12 @@ ALTER TABLE `combos`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `customers`
+--
+ALTER TABLE `customers`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `damages`
 --
 ALTER TABLE `damages`
@@ -1217,6 +1233,12 @@ ALTER TABLE `combos`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `customers`
+--
+ALTER TABLE `customers`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT for table `damages`
 --
 ALTER TABLE `damages`
@@ -1262,7 +1284,7 @@ ALTER TABLE `offers`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `permissions`
