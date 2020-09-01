@@ -2049,7 +2049,9 @@ __webpack_require__.r(__webpack_exports__);
       axios.post('order', {
         order: this.order
       }).then(function (response) {
-        window.location.href = 'order/printinvoice';
+        var resp = JSON.stringify(response.data.id); // console.log(resp);
+
+        window.location.href = 'order/printinvoice?id=' + resp;
       })["catch"](function (e) {
         console.log(e);
       });
@@ -19987,7 +19989,7 @@ var render = function() {
       _c(
         "button",
         {
-          staticClass: "btn-primary",
+          staticClass: "btn-primary float-right",
           on: {
             click: function($event) {
               return _vm.placeorder()

@@ -77,7 +77,7 @@
         </tfoot>
       </table>
       <hr/>
-      <button class="btn-primary" v-on:click="placeorder()">Order</button>
+      <button class="btn-primary float-right" v-on:click="placeorder()">Order</button>
     </div>
 
     <div class="col-md-3">
@@ -135,7 +135,9 @@ export default {
                   order: this.order
                 })
                 .then(response => {
-                    window.location.href = 'order/printinvoice';
+                  var resp = JSON.stringify(response.data.id);
+                  // console.log(resp);
+                  window.location.href = 'order/printinvoice?id='+resp;
                 })
                 .catch(e => {
                   console.log(e);

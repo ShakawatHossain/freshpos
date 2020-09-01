@@ -1,25 +1,7 @@
 <?php
 require_once './public/dompdf/autoload.inc.php';
+// require_once "{{URL::to('public/js/app.js')}}";
 
-$name = "Shakawat Hossain";
-$age = "23";
-$sex = "Male";
-$lab_id = "lab-789";
-$date = "2020-08-31";
-$phn = "01987665";
-$adds = "Dhaka, Bangladesh";
-$cls_id ="Class ID";
-$ref = "IEDCR";
-
-
-$coll_site = $date;
-$mail_address = "Email";
-$spec = "Specimen";
-$spec_date = $date;
-$test_name = "Real Time PCR for SARS-CoV-2.";
-$comments = "Please correlate clinically";
-$result = "Positive";
-$result.= " for  SARS-CoV-2 (COVID-19).";
 
 use Dompdf\Dompdf;
 
@@ -30,82 +12,71 @@ $document = new Dompdf();
 $html = '
 <table width="100%">
   <tr>
-    <td><img src="bdgov.png" alt="BD GOVT" height="80" width="80"/><td>
-    <td><center>
-      <p>Government of the People\'s Republic of Bangladesh
+    <td><h1>Invoice</h1><td>
+    <td style="width:100%"></td>
+    <td>
+      <img src="bdgov.png" alt="LOGO" height="80" width="80"/>
       <br/>
-      Institute of Epidemiology, Disease Control &amp; Research
+      <p>Akter Group
       <br/>
-      Mohakhali, Dhaka-1212, Bangladesh</p>
-    </center></td>
-    <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
-
-    <td><img src="iedcr.jpg" alt="BD GOVT" height="60" width="60"/></td>
+      Abu-Dhabi, UAE</p>
+    </td>
   </tr>
 </table>
-<center><h1>Laboratory Test Report</h1></center>
 <br/>
 <hr/>
 ';
 $html .='
 <table width="100%">
   <tr>
-  <td colspan="3">Lab ID: '.$lab_id.' '.$cls_id.'</td>
-  <td>Date: '.$date.'</td>
+  <td colspan="3">Invoice No: '.$invoice_no.'</td>
+  <td>Date: '.$invoice_date.'</td>
   </tr>
   <tr>
-  <td colspan="2">Patient\'s name: '.$name.'</td>
-  <td>Age: '.$age.'</td>
-  <td>Sex: '.$sex.'</td>
+    <td colspan="2">Name : '.$name.'</td>
+    <td colspan="2"></td>
   </tr>
   <tr>
     <td colspan="2">Phone no: '.$phn.'</td>
     <td colspan="2">Email: '.$mail_address.'</td>
   </tr>
   <tr>
-    <td colspan="2">Address: '.$adds.'</td>
-    <td colspan="2">Specimen colletion Site: '.$coll_site.'</td>
-  </tr>
-  <tr>
-    <td colspan="2">Specimen : '.$spec.'</td>
-    <td colspan="2">Specimen Collection Date: '.$spec_date.'</td>
-    
-  </tr>
-  <tr>
-    <td colspan="3">Test Performed: '.$test_name.'</td>
-    <td>Referred BY: '.$ref.'</td>
+    <td colspan="2">Address: '.$address.'</td>
+    <td colspan="2">City: '.$city.'</td>
   </tr>
 </table>
 <hr/>
-<center><h1>Result</h1></center>
+<center><h1>Details</h1></center>
 <br/>
-<p><strong>Result:</strong> '.$result.'</p>
-<br/>
-<p><strong>Comments:</strong> '.$comments.'</p>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<table>
+<table width="100%">
+<thead>
 <tr>
-<td>
-<hr/>
-<center>Head of the Department of Virology</center>
-<td>
-<td>
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</td>
-<td>
-<hr/>
-<center>Director, IEDCR</center>
-</td>
+<th>Code</th>
+<th width="100%">Name</th>
+<th>Quantity</th>
+<th>Price</th>
+</tr>
+</thead>
+<tbody>
+';
+  foreach ($products as &$product) { 
+    # code...
+      $html.= '<tr>';
+      $html.= '<td>'. $product['item']['code'] .' </td>';
+      $html.= '<td width="100%"><center>'. $product['item']['name'] .'</center> </td>';
+      $html.= '<td>'. $product['numberOfItems'] .' </td>';
+      $html.= '<td>'. $product['item']['price'] .' </td>';
+      $html.= '</tr>';
+  }
+ 
+$html.='</tbody>
+<tfoot>
+<tr>
+  <th width="100%" colspan=3><center>Grand total</center></th>
+  <th>'.$total.'</th>
 <tr/>
-<table>
+</tfoot>
+</table>
 ';
 
 
