@@ -138,6 +138,7 @@ export default {
                   var resp = JSON.stringify(response.data.id);
                   // console.log(resp);
                   window.location.href = 'order/printinvoice?id='+resp;
+                  window.location.href = 'order/printinvoice?id='+resp;
                 })
                 .catch(e => {
                   console.log(e);

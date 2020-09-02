@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Order;
+use PDF;
 
 class OrderController extends Controller
 {
@@ -35,7 +36,9 @@ class OrderController extends Controller
     	$data['total'] = $jo_data->total;
 
     	// return $data;
-    	return view('invoice',$data);
+    	$pdf = PDF::loadView('invoice', $data);
+    	return $pdf->stream('pdf_file.pdf');
+    	// return view('invoice',$data);
     	// return print_r($data['products'][0]['item']['name']);
     }
 }

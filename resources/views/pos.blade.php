@@ -16,10 +16,14 @@
       </div>
       <ul class="nav navbar-nav">
         <li class="active"><a href="{{URL::to('pos')}}">POS</a></li>
+        <li class="active"><a href="{{URL::to('customer')}}">Customer</a></li>
       </ul>
       </div>
     </nav>
-    <div id="app"></div>
+    <div id="mother">
+      <app></app>
+    </div>
+    
     <script src="{{URL::to('public/js/app.js')}}"></script>
   </body>
 </html>

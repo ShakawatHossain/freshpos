@@ -22,6 +22,7 @@ Route::get('pos', 'POSController@index');
 Route::get('getcustomerlist', 'CustomerController@getCustomer');
 Route::get('order/printinvoice', 'OrderController@printinvoice');
 Route::post('order', 'OrderController@saveorder');
+Route::get('customer', 'CustomerController@index');
 
 
 

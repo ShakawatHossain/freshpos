@@ -1,13 +1,14 @@
 <?php
-require_once './public/dompdf/autoload.inc.php';
-// require_once "{{URL::to('public/js/app.js')}}";
+// require_once './public/dompdf/autoload.inc.php';
+// // require_once "{{URL::to('public/js/app.js')}}";
 
 
-use Dompdf\Dompdf;
+// use Dompdf\Dompdf;
 
-//initialize dompdf class
+// //initialize dompdf class
 
-$document = new Dompdf();
+// $document = new Dompdf();
+
 
 $html = '
 <table width="100%">
@@ -79,11 +80,14 @@ $html.='</tbody>
 </table>
 ';
 
+echo $html;
+// $pdf = PDF::loadView($html);
 
-$document->loadHtml($html);
-$document->setPaper('A4', 'portrait');
-$document->render();
-$document->stream("COVID-19 report", array("Attachment"=>0));
+// $pdf->loadHtml($html);
+// $pdf->setPaper('A4', 'portrait');
+// $pdf->render();
+// $pdf->stream("COVID-19 report", array("Attachment"=>0));
+// $pdf->stream();
 
 
 ?>
