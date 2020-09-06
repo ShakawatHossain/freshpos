@@ -21,9 +21,31 @@
       </div>
     </nav>
     <div id="mother">
+      <button type="button" class="btn btn-info float-left" data-toggle="modal" data-target="#myModal">Add Customer</button>
       <app></app>
-    </div>
+
+      <!-- Modal -->
+      <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Add Customer</h4>
+            </div>
+            <div class="modal-body">
+            <addcustomer></addcustomer>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
     
+    </div>
     <script src="{{URL::to('public/js/app.js')}}"></script>
   </body>
 </html>

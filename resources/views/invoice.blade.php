@@ -14,7 +14,7 @@ $html = '
 <table width="100%">
   <tr>
     <td><h1>Invoice</h1><td>
-    <td style="width:100%"></td>
+    <td style="width:80%"></td>
     <td>
       <img src="bdgov.png" alt="LOGO" height="80" width="80"/>
       <br/>
@@ -35,7 +35,15 @@ $html .='
   </tr>
   <tr>
     <td colspan="2">Name : '.$name.'</td>
-    <td colspan="2"></td>
+    <td colspan="2">Status : ';
+  if($status==1)
+    $html.='PAID';
+  else if($status==2)
+    $html.='Credit';
+  else
+    $html.='Hold';
+
+ $html.='</td>
   </tr>
   <tr>
     <td colspan="2">Phone no: '.$phn.'</td>

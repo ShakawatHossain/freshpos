@@ -77,25 +77,60 @@
         </tfoot>
       </table>
       <hr/>
-      <button class="btn-primary float-right" v-on:click="placeorder()">Order</button>
+      <table width="100%">
+        <tr>
+          <td class="btn btn-success" v-on:click="placeorder()">Cash</td>
+          <td class="btn btn-primary" v-on:click="creditorder()">Credit</td>
+          <td class="btn btn-warning" v-on:click="holdorder()">Hold</td>
+          <td><a href="pos" class="btn btn-danger">Cancel</a></td>
+        </tr>
+      </table>
+      <!-- <button class="btn-primary float-right" v-on:click="placeorder()">Order</button> -->
     </div>
 
     <div class="col-md-3">
       <table class="table table-striped table-hover table-bordered table-responsive">
         <thead>
           <tr>
-            <th colspan=3><center>List of Products</center></th>
+            <th colspan=5><center>HOLDED BILLS</center></th>
           </tr>
           <tr>
-            <th>Code</th>
-            <th>Name</th>
-            <th>price</th>
+            <th>#</th>
+            <th>Date</th>
+            <th>trx no.</th>
+            <th>Amount</th>
+            <th>P.Type</th>
           </tr>
         </thead>
-        <tr v-for="item in items" v-on:click="onItemClick(item)">
-          <td> {{item.code}} </td>
-          <td> {{item.name}} </td>
-          <td> {{item.price}} </td>
+        <!-- <tr v-for="(holdorder,value) in holdorders" v-on:click="onItemClick(item)"> -->
+          <tr v-for="(holdorder,value) in holdorders">
+          <td> {{value+1}} </td>
+          <td> {{holdorder.created_at}} </td>
+          <td> {{holdorder.id}} </td>
+          <td> {{holdorder.total}} </td>
+          <td> {{holdorder.status}} </td>
+        </tr>
+      </table>
+
+      <table class="table table-striped table-hover table-bordered table-responsive">
+        <thead>
+          <tr>
+            <th colspan=5><center>LASTEST TRANSITION</center></th>
+          </tr>
+          <tr>
+            <th>#</th>
+            <th>Date</th>
+            <th>trx no.</th>
+            <th>Amount</th>
+            <th>P.Type</th>
+          </tr>
+        </thead>
+        <tr v-for="(order,value) in orders" v-on:click="onItemClick(item)">
+          <td> {{value+1}} </td>
+          <td> {{order.created_at}} </td>
+          <td> {{order.id}} </td>
+          <td> {{order.total}} </td>
+          <td> {{order.status}} </td>
         </tr>
       </table>
     </div>
@@ -110,6 +145,8 @@ export default {
     return {
       customers: [],
       items: [],
+      orders: [],
+      holdorders: [],
       lineItems: [],
       searchQuery:null,
       c_name: "Select Customer",
@@ -117,28 +154,68 @@ export default {
       order: {
         customer: null,
         lineItems: [],
-        grandTotal: 0
+        grandTotal: 0,
+        status: 0
       }
     }
   },
   created: function() {          
       const requestOne = axios.get('getproductlist');
       const requestTwo = axios.get('getcustomerlist');
+      const requestThree = axios.get('getorderlist');
+      const requestFour = axios.get('getholdorderlist');
       requestOne.then(response => (this.items = response.data));
       requestTwo.then(response => (this.customers = response.data));
+      requestThree.then(response => (this.orders = response.data));
+      requestFour.then(response => (this.holdorders = response.data));
   },
   methods: {
     placeorder: function(){
       this.order.lineItems = this.lineItems;
       this.order.grandTotal = this.grandTotal;
+      this.order.status = 1;
       axios.post('order', {
                   order: this.order
                 })
                 .then(response => {
                   var resp = JSON.stringify(response.data.id);
                   // console.log(resp);
+                  // window.location.href = 'order/printinvoice?id='+resp;
                   window.location.href = 'order/printinvoice?id='+resp;
+                })
+                .catch(e => {
+                  console.log(e);
+                })
+    },
+    creditorder: function(){
+      this.order.lineItems = this.lineItems;
+      this.order.grandTotal = this.grandTotal;
+      this.order.status = 2;
+      axios.post('order', {
+                  order: this.order
+                })
+                .then(response => {
+                  var resp = JSON.stringify(response.data.id);
+                  // console.log(resp);
+                  // window.location.href = 'order/printinvoice?id='+resp;
                   window.location.href = 'order/printinvoice?id='+resp;
+                })
+                .catch(e => {
+                  console.log(e);
+                })
+    },
+    holdorder: function(){
+      this.order.lineItems = this.lineItems;
+      this.order.grandTotal = this.grandTotal;
+      this.order.status = 3;
+      axios.post('order', {
+                  order: this.order
+                })
+                .then(response => {
+                  var resp = JSON.stringify(response.data.id);
+                  // console.log(resp);
+                  // window.location.href = 'order/printinvoice?id='+resp;
+                  window.location.href = 'pos';
                 })
                 .catch(e => {
                   console.log(e);

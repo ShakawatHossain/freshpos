@@ -22,6 +22,7 @@
     </nav>
     <div id="mother">
       <customerapp></customerapp>
+      <addcustomer></addcustomer>
     </div>
     
     <script src="{{URL::to('public/js/app.js')}}"></script>

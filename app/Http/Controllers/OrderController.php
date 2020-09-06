@@ -15,10 +15,23 @@ class OrderController extends Controller
     	$order->customer_id = $req->order['customer']['id'];
     	$order->order_details = serialize($req->order['lineItems']);
     	$order->total = $req->order['grandTotal'];
+    	$order->status = $req->order['status'];
     	$order->save();
 
     	// return response()->json($req->all());
     	return response()->json(["id"=>$order->id]);
+    }
+    public function getorderlist(){
+
+    	$order = new Order();
+    	
+    	return $order->getorderlist();
+    }
+    public function getholdorderlist(){
+
+    	$order = new Order();
+    	
+    	return $order->getholdorderlist();
     }
     public function printinvoice(Request $req){
     	$order = new Order();
@@ -34,6 +47,7 @@ class OrderController extends Controller
     	$data['address'] = $jo_data->address;
     	$data['products'] = unserialize($jo_data->order_details);
     	$data['total'] = $jo_data->total;
+    	$data['status'] = $jo_data->status;
 
     	// return $data;
     	$pdf = PDF::loadView('invoice', $data);
