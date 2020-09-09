@@ -11,7 +11,7 @@ class OrderController extends Controller
     //
     public function saveorder(Request $req){
 
-    	$order = new Order();
+        $order = isset($req->order['id']) && $req->order['id']>0? Order::find((int)$req->order['id']): new Order();
     	$order->customer_id = $req->order['customer']['id'];
     	$order->order_details = serialize($req->order['lineItems']);
     	$order->total = $req->order['grandTotal'];

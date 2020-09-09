@@ -9,18 +9,27 @@ class CustomerController extends Controller
 	 public function savecustomer(Request $req){
 
     	$customer = new Customer();
-    	$customer->code = $req->customer['code'];
-    	$customer->email = $req->customer['email'];
+    	if (isset($req->customer['code'])) 
+    		$customer->code = $req->customer['code'];
+    	else
+    		$customer->code = "cus001";
+    	if (isset($req->customer['email'])) 
+    		$customer->email = $req->customer['email'];
+    	else
+    		$customer->email = "demo@cus.com";
     	$customer->name = $req->customer['name'];
-    	$customer->city = $req->customer['city'];
-    	$customer->phone = $req->customer['phone'];
-    	$customer->country = $req->customer['country'];
-    	$customer->address = $req->customer['address'];
+    	if (isset($req->customer['city'])) 
+    		$customer->city = $req->customer['city'];
+    	else
+    		$customer->city = "walkincustomer";
+    	if (isset($req->customer['phone'])) 
+    		$customer->phone = $req->customer['phone'];
+    	else
+    		$customer->phone = "000000";
+    	
+    	$customer->country = isset($req->customer['country'])?$req->customer['country']:"walkincustomer";
+    	$customer->address = isset($req->customer['address'])?$req->customer['address']:"walkincustomer";
     	$customer->type = $req->customer['type'];
-    	// $order->customer_id = $req->order['customer']['id'];
-    	// $order->order_details = serialize($req->order['lineItems']);
-    	// $order->total = $req->order['grandTotal'];
-    	// $order->status = $req->order['status'];
     	$customer->save();
     	return response()->json(["id"=>$customer->id]);
     }

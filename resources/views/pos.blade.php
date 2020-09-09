@@ -21,7 +21,11 @@
       </div>
     </nav>
     <div id="mother">
-      <button type="button" class="btn btn-info float-left" data-toggle="modal" data-target="#myModal">Add Customer</button>
+      <div class="container">
+        
+      
+      <button type="button" class="btn btn-info float-right" data-toggle="modal" data-target="#myModal">Add Customer</button>
+      </div>
       <app></app>
 
       <!-- Modal -->

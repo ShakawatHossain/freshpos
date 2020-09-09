@@ -1,6 +1,6 @@
 <template>
   <div id="app" class="container">
-    <div class="col-md-3">
+   <!--  <div class="col-md-3">
       <table class="table table-striped table-hover table-bordered table-responsive">
         <thead>
           <tr>
@@ -18,9 +18,12 @@
           <td> {{customer.phone}} </td>
         </tr>
       </table>
-    </div>
+    </div> -->
 
     <div class="col-md-6">
+      <label>Enter customer name or mobile number and press enter</label>
+      <input type="text" v-model="searchcus" v-on:keyup.enter="searchcustomer" class="form-control" placeholder="mobile or name" />
+      <hr/>
       <label>Enter Item code and press enter to add product into cart</label>
       <input type="text" v-model="searchQuery" v-on:keyup.enter="search" class="form-control" placeholder="Item Code" />
       <br/>
@@ -103,7 +106,7 @@
           </tr>
         </thead>
         <!-- <tr v-for="(holdorder,value) in holdorders" v-on:click="onItemClick(item)"> -->
-          <tr v-for="(holdorder,value) in holdorders">
+          <tr v-for="(holdorder,value) in holdorders" v-on:click="loadhold(holder)">
           <td> {{value+1}} </td>
           <td> {{holdorder.created_at}} </td>
           <td> {{holdorder.id}} </td>
@@ -139,8 +142,10 @@
 </template>
 
 <script>
+import {bus} from "./app";
 export default {
   name: 'app',
+  // props: [customer],
   data () {
     return {
       customers: [],
@@ -148,10 +153,12 @@ export default {
       orders: [],
       holdorders: [],
       lineItems: [],
+      searchcus:null,
       searchQuery:null,
       c_name: "Select Customer",
       c_phone: "Select Customer",
       order: {
+        id:0,
         customer: null,
         lineItems: [],
         grandTotal: 0,
@@ -168,6 +175,11 @@ export default {
       requestTwo.then(response => (this.customers = response.data));
       requestThree.then(response => (this.orders = response.data));
       requestFour.then(response => (this.holdorders = response.data));
+      bus.$on('newcustomer',(data)=>{
+        this.c_name = data.name;
+        this.c_phone = data.phone;
+        this.order.customer = data;
+      });
   },
   methods: {
     placeorder: function(){
@@ -221,11 +233,14 @@ export default {
                   console.log(e);
                 })
     },
-    onCustomerClick: function(customer) {
-      this.c_name = customer.name;
-      this.c_phone = customer.phone;
-      this.order.customer = customer;
+    loadhold:function(holder){
+      // axios
     },
+    // onCustomerClick: function(customer) {
+    //   this.c_name = customer.name;
+    //   this.c_phone = customer.phone;
+    //   this.order.customer = customer;
+    // },
     onItemClick: function(item) {
       //console.log(item);
       var found = false;
@@ -251,6 +266,17 @@ export default {
                 break;
             }
         }
+    },
+    searchcustomer(){
+      if(this.searchcus){
+        this.customers.filter((i)=>{
+          if(i.name.toLowerCase() === this.searchcus.toLowerCase() || i.phone === this.searchcus){
+              this.c_phone = i.phone;
+              this.c_name = i.name;
+              this.order.customer = i;
+          }
+        });
+      }
     },
     search(){
       if(this.searchQuery){
