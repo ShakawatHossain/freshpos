@@ -106,7 +106,7 @@
           </tr>
         </thead>
         <!-- <tr v-for="(holdorder,value) in holdorders" v-on:click="onItemClick(item)"> -->
-          <tr v-for="(holdorder,value) in holdorders" v-on:click="loadhold(holder)">
+          <tr v-for="(holdorder,value) in holdorders" v-on:click="loadhold(holdorder)">
           <td> {{value+1}} </td>
           <td> {{holdorder.created_at}} </td>
           <td> {{holdorder.id}} </td>
@@ -210,7 +210,8 @@ export default {
                   var resp = JSON.stringify(response.data.id);
                   // console.log(resp);
                   // window.location.href = 'order/printinvoice?id='+resp;
-                  window.location.href = 'order/printinvoice?id='+resp;
+                  // window.location.href = 'order/printinvoice?id='+resp;
+                  window.location.href = 'pos';
                 })
                 .catch(e => {
                   console.log(e);
@@ -234,13 +235,22 @@ export default {
                 })
     },
     loadhold:function(holder){
-      // axios
+      // console.log(holder);
+      var getholder = axios.get('getsigleorder?id='+holder.id);
+      getholder.then(response => {
+          // console.log(response);
+          this.c_name = response.data.name;
+          this.c_phone = response.data.phn;
+          this.lineItems = response.data.products;
+          this.customers.filter((i)=>{
+            if(i.phone === response.data.phn){
+                this.order.customer = i;
+            }
+          });
+          this.order.id = response.data.invoice_no;
+       } );
     },
-    // onCustomerClick: function(customer) {
-    //   this.c_name = customer.name;
-    //   this.c_phone = customer.phone;
-    //   this.order.customer = customer;
-    // },
+    
     onItemClick: function(item) {
       //console.log(item);
       var found = false;

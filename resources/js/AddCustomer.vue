@@ -26,7 +26,7 @@
         <td><v-select class="form-control" label="Customer Type"  v-model="customer.type" :options="ctype"/></td>
       </tr>
       <tr>
-        <td colspan="4"><button class="btn btn-primary float-right" v-on:click="creatCustomer()">SUBMIT</button></td>
+        <td colspan="4"><button class="btn btn-primary float-right" v-on:click="creatCustomer()" data-dismiss="modal">SUBMIT</button></td>
       </tr>
     </table>
   </div>

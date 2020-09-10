@@ -48,11 +48,27 @@ class OrderController extends Controller
     	$data['products'] = unserialize($jo_data->order_details);
     	$data['total'] = $jo_data->total;
     	$data['status'] = $jo_data->status;
-
-    	// return $data;
     	$pdf = PDF::loadView('invoice', $data);
-    	return $pdf->stream('pdf_file.pdf');
-    	// return view('invoice',$data);
-    	// return print_r($data['products'][0]['item']['name']);
+    	return $pdf->stream('pdf_file.pdf');	
+    }
+    public function getSingleOrder(Request $req){
+        $order = new Order();
+        $ja_data =  $order->getOrder($req->id);
+        $jo_data = $ja_data[0];
+        $data = array();
+        $data['invoice_no'] = $jo_data->inv_id;
+        // $data['invoice_date'] = $jo_data->inv_date;
+        $data['cus_id'] = $jo_data->cus_id;
+        $data['name'] = $jo_data->name;
+        $data['phn'] = $jo_data->phone;
+        // $data['mail_address'] = $jo_data->email;
+        // $data['city'] = $jo_data->city.', '.$jo_data->country;
+        // $data['address'] = $jo_data->address;
+        $data['products'] = unserialize($jo_data->order_details);
+        return $data;
+        // $data['total'] = $jo_data->total;
+        // $data['status'] = $jo_data->status;
+        // $pdf = PDF::loadView('invoice', $data);
+        // return $pdf->stream('pdf_file.pdf');    
     }
 }

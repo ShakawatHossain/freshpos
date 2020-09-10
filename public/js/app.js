@@ -2210,8 +2210,9 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (response) {
         var resp = JSON.stringify(response.data.id); // console.log(resp);
         // window.location.href = 'order/printinvoice?id='+resp;
+        // window.location.href = 'order/printinvoice?id='+resp;
 
-        window.location.href = 'order/printinvoice?id=' + resp;
+        window.location.href = 'pos';
       })["catch"](function (e) {
         console.log(e);
       });
@@ -2231,13 +2232,26 @@ __webpack_require__.r(__webpack_exports__);
         console.log(e);
       });
     },
-    loadhold: function loadhold(holder) {// axios
+    loadhold: function loadhold(holder) {
+      var _this2 = this;
+
+      // console.log(holder);
+      var getholder = axios.get('getsigleorder?id=' + holder.id);
+      getholder.then(function (response) {
+        // console.log(response);
+        _this2.c_name = response.data.name;
+        _this2.c_phone = response.data.phn;
+        _this2.lineItems = response.data.products;
+
+        _this2.customers.filter(function (i) {
+          if (i.phone === response.data.phn) {
+            _this2.order.customer = i;
+          }
+        });
+
+        _this2.order.id = response.data.invoice_no;
+      });
     },
-    // onCustomerClick: function(customer) {
-    //   this.c_name = customer.name;
-    //   this.c_phone = customer.phone;
-    //   this.order.customer = customer;
-    // },
     onItemClick: function onItemClick(item) {
       //console.log(item);
       var found = false;
@@ -2270,25 +2284,25 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     searchcustomer: function searchcustomer() {
-      var _this2 = this;
+      var _this3 = this;
 
       if (this.searchcus) {
         this.customers.filter(function (i) {
-          if (i.name.toLowerCase() === _this2.searchcus.toLowerCase() || i.phone === _this2.searchcus) {
-            _this2.c_phone = i.phone;
-            _this2.c_name = i.name;
-            _this2.order.customer = i;
+          if (i.name.toLowerCase() === _this3.searchcus.toLowerCase() || i.phone === _this3.searchcus) {
+            _this3.c_phone = i.phone;
+            _this3.c_name = i.name;
+            _this3.order.customer = i;
           }
         });
       }
     },
     search: function search() {
-      var _this3 = this;
+      var _this4 = this;
 
       if (this.searchQuery) {
         this.items.filter(function (i) {
-          if (i.code.toLowerCase() === _this3.searchQuery.toLowerCase()) {
-            _this3.onItemClick(i);
+          if (i.code.toLowerCase() === _this4.searchQuery.toLowerCase()) {
+            _this4.onItemClick(i);
           }
         });
       }
@@ -20217,6 +20231,7 @@ var render = function() {
             "button",
             {
               staticClass: "btn btn-primary float-right",
+              attrs: { "data-dismiss": "modal" },
               on: {
                 click: function($event) {
                   return _vm.creatCustomer()
@@ -20526,7 +20541,7 @@ var render = function() {
               {
                 on: {
                   click: function($event) {
-                    return _vm.loadhold(_vm.holder)
+                    return _vm.loadhold(holdorder)
                   }
                 }
               },

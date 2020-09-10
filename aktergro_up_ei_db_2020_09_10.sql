@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3307
--- Generation Time: Sep 06, 2020 at 10:23 AM
+-- Generation Time: Sep 10, 2020 at 01:21 PM
 -- Server version: 10.4.13-MariaDB
 -- PHP Version: 7.4.8
 
@@ -119,7 +119,18 @@ CREATE TABLE `customers` (
 INSERT INTO `customers` (`id`, `code`, `email`, `name`, `city`, `phone`, `country`, `address`, `type`, `created_at`, `updated_at`) VALUES
 (1, 'cus001', 'vong@chong.com', 'Walk In Customer', 'Dubai', '99015646', 'UAE', 'Suite:34, Alipur road', 'Premium', NULL, NULL),
 (2, 'cus002', 'abc@cde.def', 'Run In Customer', 'Dohar', '99086846', 'UAE', 'Suite:4, Dohar paradise', 'General', NULL, NULL),
-(3, 'cus003', 'van@gnn.ccc', 'Aninda', 'Mosco', '0181719786', 'Russia', 'suit:07', 'Regular', '2020-09-06 01:27:32', '2020-09-06 01:27:32');
+(3, 'cus003', 'van@gnn.ccc', 'Aninda', 'Mosco', '0181719786', 'Russia', 'suit:07', 'Regular', '2020-09-06 01:27:32', '2020-09-06 01:27:32'),
+(4, 'cus001', 'demo@cus.com', 'Shakawat', 'walkincustomer', '000000', 'walkincustomer', 'walkincustomer', 'WalkInCustomer', '2020-09-09 03:08:44', '2020-09-09 03:08:44'),
+(5, 'cus005', 'mahbub@gmail.com', 'Mahbub Alam', 'dhaka', '01804171564', 'Bangladesh', '722/1haji k. Ali road,east jurain', 'Regular customer', '2020-09-09 03:09:30', '2020-09-09 03:09:30'),
+(6, 'cus001', 'demo@cus.com', 'Holla', 'walkincustomer', '000000', 'walkincustomer', 'walkincustomer', 'WalkInCustomer', '2020-09-09 04:41:14', '2020-09-09 04:41:14'),
+(7, 'cus001', 'demo@cus.com', 'Farhad', 'walkincustomer', '000000', 'walkincustomer', 'walkincustomer', 'WalkInCustomer', '2020-09-09 04:47:44', '2020-09-09 04:47:44'),
+(8, 'cus001', 'demo@cus.com', 'Olla', 'walkincustomer', '000000', 'walkincustomer', 'walkincustomer', 'WalkInCustomer', '2020-09-09 04:50:16', '2020-09-09 04:50:16'),
+(9, 'cus001', 'demo@cus.com', 'polop', 'walkincustomer', '000000', 'walkincustomer', 'walkincustomer', 'WalkInCustomer', '2020-09-09 04:55:56', '2020-09-09 04:55:56'),
+(10, 'cus007', 'a@b.c', 'Shakawat Hossain', 'borisal', '0987654', 'Bangladesh', '722/1haji k. Ali road,east jurain', 'Regular customer', '2020-09-09 05:29:15', '2020-09-09 05:29:15'),
+(11, 'cus001', 'demo@cus.com', 'ulala', 'walkincustomer', '000000', 'walkincustomer', 'walkincustomer', 'WalkInCustomer', '2020-09-10 05:01:35', '2020-09-10 05:01:35'),
+(12, 'cus001', 'demo@cus.com', 'Amir Khan', 'walkincustomer', '000000', 'walkincustomer', 'walkincustomer', 'WalkInCustomer', '2020-09-10 05:12:46', '2020-09-10 05:12:46'),
+(13, 'cus001', 'demo@cus.com', 'Saharukh Khan', 'walkincustomer', '000000', 'walkincustomer', 'walkincustomer', 'WalkInCustomer', '2020-09-10 05:14:11', '2020-09-10 05:14:11'),
+(14, 'cus001', 'demo@cus.com', 'Soual', 'walkincustomer', '000000', 'walkincustomer', 'walkincustomer', 'WalkInCustomer', '2020-09-10 05:16:50', '2020-09-10 05:16:50');
 
 -- --------------------------------------------------------
 
@@ -350,8 +361,15 @@ INSERT INTO `orders` (`id`, `customer_id`, `order_details`, `total`, `status`, `
 (21, 1, 'a:1:{i:0;a:3:{s:4:\"item\";a:3:{s:4:\"code\";s:6:\"101252\";s:4:\"name\";s:25:\"AL DHAFRA DATES 1KG DABBA\";s:5:\"price\";d:13.65;}s:13:\"numberOfItems\";i:1;s:7:\"editing\";b:0;}}', 14.54, 1, '2020-09-02 03:29:31', '2020-09-02 03:29:31'),
 (22, 1, 'a:1:{i:0;a:3:{s:4:\"item\";a:3:{s:4:\"code\";s:6:\"101252\";s:4:\"name\";s:25:\"AL DHAFRA DATES 1KG DABBA\";s:5:\"price\";d:13.65;}s:13:\"numberOfItems\";i:1;s:7:\"editing\";b:0;}}', 14.54, 1, '2020-09-05 22:42:12', '2020-09-05 22:42:12'),
 (23, 1, 'a:1:{i:0;a:3:{s:4:\"item\";a:3:{s:4:\"code\";s:6:\"101252\";s:4:\"name\";s:25:\"AL DHAFRA DATES 1KG DABBA\";s:5:\"price\";d:13.65;}s:13:\"numberOfItems\";i:3;s:7:\"editing\";b:0;}}', 43.61, 2, '2020-09-05 23:16:57', '2020-09-05 23:16:57'),
-(24, 2, 'a:1:{i:0;a:3:{s:4:\"item\";a:3:{s:4:\"code\";s:6:\"101252\";s:4:\"name\";s:25:\"AL DHAFRA DATES 1KG DABBA\";s:5:\"price\";d:13.65;}s:13:\"numberOfItems\";i:1;s:7:\"editing\";b:0;}}', 14.54, 3, '2020-09-05 23:22:41', '2020-09-05 23:22:41'),
-(25, 3, 'a:1:{i:0;a:3:{s:4:\"item\";a:3:{s:4:\"code\";s:6:\"101252\";s:4:\"name\";s:25:\"AL DHAFRA DATES 1KG DABBA\";s:5:\"price\";d:13.65;}s:13:\"numberOfItems\";i:3;s:7:\"editing\";b:0;}}', 43.61, 2, '2020-09-06 01:29:01', '2020-09-06 01:29:01');
+(24, 2, 'a:1:{i:0;a:3:{s:4:\"item\";a:3:{s:4:\"code\";s:6:\"101252\";s:4:\"name\";s:25:\"AL DHAFRA DATES 1KG DABBA\";s:5:\"price\";d:13.65;}s:13:\"numberOfItems\";i:1;s:7:\"editing\";b:0;}}', 14.54, 1, '2020-09-05 23:22:41', '2020-09-10 05:06:03'),
+(25, 3, 'a:1:{i:0;a:3:{s:4:\"item\";a:3:{s:4:\"code\";s:6:\"101252\";s:4:\"name\";s:25:\"AL DHAFRA DATES 1KG DABBA\";s:5:\"price\";d:13.65;}s:13:\"numberOfItems\";i:3;s:7:\"editing\";b:0;}}', 43.61, 2, '2020-09-06 01:29:01', '2020-09-06 01:29:01'),
+(26, 9, 'a:1:{i:0;a:3:{s:4:\"item\";a:3:{s:4:\"code\";s:6:\"101252\";s:4:\"name\";s:25:\"AL DHAFRA DATES 1KG DABBA\";s:5:\"price\";d:13.65;}s:13:\"numberOfItems\";i:4;s:7:\"editing\";b:0;}}', 58.15, 1, '2020-09-09 04:56:05', '2020-09-09 04:56:05'),
+(27, 6, 'a:1:{i:0;a:3:{s:4:\"item\";a:3:{s:4:\"code\";s:6:\"101252\";s:4:\"name\";s:25:\"AL DHAFRA DATES 1KG DABBA\";s:5:\"price\";d:13.65;}s:13:\"numberOfItems\";i:3;s:7:\"editing\";b:0;}}', 43.61, 1, '2020-09-09 05:27:56', '2020-09-09 05:27:56'),
+(28, 10, 'a:1:{i:0;a:3:{s:4:\"item\";a:3:{s:4:\"code\";s:6:\"101252\";s:4:\"name\";s:25:\"AL DHAFRA DATES 1KG DABBA\";s:5:\"price\";d:13.65;}s:13:\"numberOfItems\";i:4;s:7:\"editing\";b:0;}}', 58.15, 1, '2020-09-09 05:29:40', '2020-09-09 05:29:40'),
+(29, 2, 'a:1:{i:0;a:3:{s:4:\"item\";a:3:{s:4:\"code\";s:6:\"101252\";s:4:\"name\";s:25:\"AL DHAFRA DATES 1KG DABBA\";s:5:\"price\";d:13.65;}s:13:\"numberOfItems\";i:1;s:7:\"editing\";b:0;}}', 14.54, 1, '2020-09-10 05:00:26', '2020-09-10 05:00:26'),
+(30, 11, 'a:1:{i:0;a:3:{s:4:\"item\";a:3:{s:4:\"code\";s:6:\"101252\";s:4:\"name\";s:25:\"AL DHAFRA DATES 1KG DABBA\";s:5:\"price\";d:13.65;}s:13:\"numberOfItems\";i:2;s:7:\"editing\";b:0;}}', 29.07, 1, '2020-09-10 05:01:53', '2020-09-10 05:01:53'),
+(31, 2, 'a:1:{i:0;a:3:{s:4:\"item\";a:3:{s:4:\"code\";s:6:\"101252\";s:4:\"name\";s:25:\"AL DHAFRA DATES 1KG DABBA\";s:5:\"price\";d:13.65;}s:13:\"numberOfItems\";i:1;s:7:\"editing\";b:0;}}', 14.54, 2, '2020-09-10 05:02:18', '2020-09-10 05:02:18'),
+(32, 14, 'a:1:{i:0;a:3:{s:4:\"item\";a:3:{s:4:\"code\";s:6:\"101252\";s:4:\"name\";s:25:\"AL DHAFRA DATES 1KG DABBA\";s:5:\"price\";d:13.65;}s:13:\"numberOfItems\";i:7;s:7:\"editing\";b:0;}}', 101.76, 1, '2020-09-10 05:17:03', '2020-09-10 05:17:16');
 
 -- --------------------------------------------------------
 
@@ -1244,7 +1262,7 @@ ALTER TABLE `combos`
 -- AUTO_INCREMENT for table `customers`
 --
 ALTER TABLE `customers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `damages`
@@ -1292,7 +1310,7 @@ ALTER TABLE `offers`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT for table `permissions`
