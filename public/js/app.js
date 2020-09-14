@@ -2114,28 +2114,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'app',
@@ -2187,6 +2165,11 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     placeorder: function placeorder() {
+      if (this.lineItems.length == 0) {
+        alert("Can't order with empty cart!");
+        return;
+      }
+
       this.order.lineItems = this.lineItems;
       this.order.grandTotal = this.grandTotal;
       this.order.status = 1;
@@ -2202,6 +2185,11 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     creditorder: function creditorder() {
+      if (this.lineItems.length == 0) {
+        alert("Can't order with empty cart!");
+        return;
+      }
+
       this.order.lineItems = this.lineItems;
       this.order.grandTotal = this.grandTotal;
       this.order.status = 2;
@@ -2218,6 +2206,11 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     holdorder: function holdorder() {
+      if (this.lineItems.length == 0) {
+        alert("Can't order with empty cart!");
+        return;
+      }
+
       this.order.lineItems = this.lineItems;
       this.order.grandTotal = this.grandTotal;
       this.order.status = 3;
@@ -2236,7 +2229,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this2 = this;
 
       // console.log(holder);
-      var getholder = axios.get('getsigleorder?id=' + holder.id);
+      var getholder = axios.get('getsingleorder?id=' + holder.id);
       getholder.then(function (response) {
         // console.log(response);
         _this2.c_name = response.data.name;
@@ -2296,16 +2289,17 @@ __webpack_require__.r(__webpack_exports__);
         });
       }
     },
-    search: function search() {
+    search: function search(event) {
       var _this4 = this;
 
-      if (this.searchQuery) {
-        this.items.filter(function (i) {
-          if (i.code.toLowerCase() === _this4.searchQuery.toLowerCase()) {
-            _this4.onItemClick(i);
-          }
-        });
-      }
+      // console.log("Hello");
+      // if(this.searchQuery){
+      this.items.filter(function (i) {
+        // if(i.code.toLowerCase() === this.searchQuery.toLowerCase()){
+        if (i.code.toLowerCase() === event.code.toLowerCase()) {
+          _this4.onItemClick(i);
+        }
+      }); // }
     },
     roundToTwoDigitsAfterComma: function roundToTwoDigitsAfterComma(floatNumber) {
       return parseFloat((Math.round(floatNumber * 100) / 100).toFixed(2));
@@ -20268,251 +20262,213 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container", attrs: { id: "app" } }, [
-    _c("div", { staticClass: "col-md-6" }, [
-      _c("label", [
-        _vm._v("Enter customer name or mobile number and press enter")
-      ]),
-      _vm._v(" "),
-      _c("input", {
-        directives: [
-          {
-            name: "model",
-            rawName: "v-model",
-            value: _vm.searchcus,
-            expression: "searchcus"
-          }
-        ],
-        staticClass: "form-control",
-        attrs: { type: "text", placeholder: "mobile or name" },
-        domProps: { value: _vm.searchcus },
-        on: {
-          keyup: function($event) {
-            if (
-              !$event.type.indexOf("key") &&
-              _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
-            ) {
-              return null
-            }
-            return _vm.searchcustomer($event)
-          },
-          input: function($event) {
-            if ($event.target.composing) {
-              return
-            }
-            _vm.searchcus = $event.target.value
-          }
-        }
-      }),
-      _vm._v(" "),
-      _c("hr"),
-      _vm._v(" "),
-      _c("label", [
-        _vm._v("Enter Item code and press enter to add product into cart")
-      ]),
-      _vm._v(" "),
-      _c("input", {
-        directives: [
-          {
-            name: "model",
-            rawName: "v-model",
-            value: _vm.searchQuery,
-            expression: "searchQuery"
-          }
-        ],
-        staticClass: "form-control",
-        attrs: { type: "text", placeholder: "Item Code" },
-        domProps: { value: _vm.searchQuery },
-        on: {
-          keyup: function($event) {
-            if (
-              !$event.type.indexOf("key") &&
-              _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
-            ) {
-              return null
-            }
-            return _vm.search($event)
-          },
-          input: function($event) {
-            if ($event.target.composing) {
-              return
-            }
-            _vm.searchQuery = $event.target.value
-          }
-        }
-      }),
-      _vm._v(" "),
-      _c("br"),
-      _vm._v(" "),
-      _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col-md-8" }, [
-          _c("label", [_vm._v("Name:")]),
-          _vm._v(_vm._s(_vm.c_name))
+    _c(
+      "div",
+      { staticClass: "col-md-6" },
+      [
+        _c("label", [
+          _vm._v("Enter customer name or mobile number and press enter")
         ]),
         _vm._v(" "),
-        _c("div", { staticClass: "col-md-4" }, [
-          _c("label", [_vm._v("Phone:")]),
-          _vm._v(_vm._s(_vm.c_phone))
-        ])
-      ]),
-      _vm._v(" "),
-      _c(
-        "table",
-        {
-          staticClass:
-            "table table-striped table-hover table-bordered table-responsive"
-        },
-        [
-          _vm._m(0),
-          _vm._v(" "),
-          _c(
-            "tbody",
-            _vm._l(_vm.lineItems, function(item) {
-              return _c("tr", [
-                _c("td", [_vm._v(_vm._s(item.item.name))]),
-                _vm._v(" "),
-                _c("td", [_vm._v(_vm._s(item.item.price))]),
-                _vm._v(" "),
-                _c("td", [
-                  !item.editing
-                    ? _c(
-                        "span",
-                        {
-                          on: {
-                            dblclick: function($event) {
-                              return _vm.toggleEdit(item)
-                            }
-                          }
-                        },
-                        [_vm._v(_vm._s(item.numberOfItems))]
-                      )
-                    : _vm._e(),
-                  _vm._v(" "),
-                  item.editing
-                    ? _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: item.numberOfItems,
-                            expression: "item.numberOfItems"
-                          }
-                        ],
-                        attrs: { type: "number" },
-                        domProps: { value: item.numberOfItems },
-                        on: {
-                          blur: function($event) {
-                            return _vm.toggleEdit(item)
-                          },
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.$set(item, "numberOfItems", $event.target.value)
-                          }
-                        }
-                      })
-                    : _vm._e()
-                ]),
-                _vm._v(" "),
-                _c("td", [
-                  _vm._v(_vm._s(item.numberOfItems * item.item.price))
-                ]),
-                _vm._v(" "),
-                _c("td", [
-                  _c("i", {
-                    staticClass: "fa fa-times",
-                    on: {
-                      click: function($event) {
-                        return _vm.removeItem(item)
-                      }
-                    }
-                  })
-                ])
-              ])
-            }),
-            0
-          )
-        ]
-      ),
-      _vm._v(" "),
-      _c("table", { staticClass: "table" }, [
-        _vm._m(1),
+        _c("v-select", {
+          staticClass: "form-control-select",
+          attrs: {
+            placeholder: "Select customer",
+            label: "name",
+            options: _vm.customers
+          },
+          model: {
+            value: _vm.order.customer,
+            callback: function($$v) {
+              _vm.$set(_vm.order, "customer", $$v)
+            },
+            expression: "order.customer"
+          }
+        }),
         _vm._v(" "),
-        _c("tbody", { staticStyle: { "background-color": "#dbeef3" } }, [
-          _c("tr", [
-            _c("th", [_vm._v(_vm._s(_vm.subtotal))]),
+        _c("hr"),
+        _vm._v(" "),
+        _c("label", [
+          _vm._v("Enter Item code and press enter to add product into cart")
+        ]),
+        _vm._v(" "),
+        _c("v-select", {
+          staticClass: "form-control-select",
+          attrs: {
+            taggable: "",
+            placeholder: "Select product",
+            label: "code",
+            options: _vm.items
+          },
+          on: { "option:created": _vm.search }
+        }),
+        _vm._v(" "),
+        _c("br"),
+        _vm._v(" "),
+        _c(
+          "table",
+          {
+            staticClass:
+              "table table-striped table-hover table-bordered table-responsive"
+          },
+          [
+            _vm._m(0),
             _vm._v(" "),
-            _c("th", [_vm._v(_vm._s(_vm.total))]),
-            _vm._v(" "),
-            _c("th", [_vm._v(_vm._s(_vm.tax))]),
-            _vm._v(" "),
-            _c("th", [_vm._v(_vm._s(_vm.grandTotal))])
+            _c(
+              "tbody",
+              _vm._l(_vm.lineItems, function(item) {
+                return _c("tr", [
+                  _c("td", [_vm._v(_vm._s(item.item.name))]),
+                  _vm._v(" "),
+                  _c("td", [_vm._v(_vm._s(item.item.price))]),
+                  _vm._v(" "),
+                  _c("td", [
+                    !item.editing
+                      ? _c(
+                          "span",
+                          {
+                            on: {
+                              dblclick: function($event) {
+                                return _vm.toggleEdit(item)
+                              }
+                            }
+                          },
+                          [_vm._v(_vm._s(item.numberOfItems))]
+                        )
+                      : _vm._e(),
+                    _vm._v(" "),
+                    item.editing
+                      ? _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: item.numberOfItems,
+                              expression: "item.numberOfItems"
+                            }
+                          ],
+                          attrs: { type: "number" },
+                          domProps: { value: item.numberOfItems },
+                          on: {
+                            blur: function($event) {
+                              return _vm.toggleEdit(item)
+                            },
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                item,
+                                "numberOfItems",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        })
+                      : _vm._e()
+                  ]),
+                  _vm._v(" "),
+                  _c("td", [
+                    _vm._v(_vm._s(item.numberOfItems * item.item.price))
+                  ]),
+                  _vm._v(" "),
+                  _c("td", [
+                    _c("i", {
+                      staticClass: "fa fa-times",
+                      on: {
+                        click: function($event) {
+                          return _vm.removeItem(item)
+                        }
+                      }
+                    })
+                  ])
+                ])
+              }),
+              0
+            )
+          ]
+        ),
+        _vm._v(" "),
+        _c("table", { staticClass: "table" }, [
+          _vm._m(1),
+          _vm._v(" "),
+          _c("tbody", { staticStyle: { "background-color": "#dbeef3" } }, [
+            _c("tr", [
+              _c("th", [_vm._v(_vm._s(_vm.subtotal))]),
+              _vm._v(" "),
+              _c("th", [_vm._v(_vm._s(_vm.total))]),
+              _vm._v(" "),
+              _c("th", [_vm._v(_vm._s(_vm.tax))]),
+              _vm._v(" "),
+              _c("th", [_vm._v(_vm._s(_vm.grandTotal))])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("tfoot", [
+            _c("tr", [
+              _c(
+                "th",
+                {
+                  staticStyle: { "background-color": "#f2f2f2" },
+                  attrs: { colspan: "3" }
+                },
+                [_vm._v("Amount to be paid")]
+              ),
+              _vm._v(" "),
+              _c("th", [_vm._v(_vm._s(_vm.grandTotal))])
+            ])
           ])
         ]),
         _vm._v(" "),
-        _c("tfoot", [
+        _c("hr"),
+        _vm._v(" "),
+        _c("table", { attrs: { width: "100%" } }, [
           _c("tr", [
             _c(
-              "th",
+              "td",
               {
-                staticStyle: { "background-color": "#f2f2f2" },
-                attrs: { colspan: "3" }
+                staticClass: "btn btn-success",
+                on: {
+                  click: function($event) {
+                    return _vm.placeorder()
+                  }
+                }
               },
-              [_vm._v("Amount to be paid")]
+              [_vm._v("Cash")]
             ),
             _vm._v(" "),
-            _c("th", [_vm._v(_vm._s(_vm.grandTotal))])
+            _c(
+              "td",
+              {
+                staticClass: "btn btn-primary",
+                on: {
+                  click: function($event) {
+                    return _vm.creditorder()
+                  }
+                }
+              },
+              [_vm._v("Credit")]
+            ),
+            _vm._v(" "),
+            _c(
+              "td",
+              {
+                staticClass: "btn btn-warning",
+                on: {
+                  click: function($event) {
+                    return _vm.holdorder()
+                  }
+                }
+              },
+              [_vm._v("Hold")]
+            ),
+            _vm._v(" "),
+            _vm._m(2)
           ])
         ])
-      ]),
-      _vm._v(" "),
-      _c("hr"),
-      _vm._v(" "),
-      _c("table", { attrs: { width: "100%" } }, [
-        _c("tr", [
-          _c(
-            "td",
-            {
-              staticClass: "btn btn-success",
-              on: {
-                click: function($event) {
-                  return _vm.placeorder()
-                }
-              }
-            },
-            [_vm._v("Cash")]
-          ),
-          _vm._v(" "),
-          _c(
-            "td",
-            {
-              staticClass: "btn btn-primary",
-              on: {
-                click: function($event) {
-                  return _vm.creditorder()
-                }
-              }
-            },
-            [_vm._v("Credit")]
-          ),
-          _vm._v(" "),
-          _c(
-            "td",
-            {
-              staticClass: "btn btn-warning",
-              on: {
-                click: function($event) {
-                  return _vm.holdorder()
-                }
-              }
-            },
-            [_vm._v("Hold")]
-          ),
-          _vm._v(" "),
-          _vm._m(2)
-        ])
-      ])
-    ]),
+      ],
+      1
+    ),
     _vm._v(" "),
     _c("div", { staticClass: "col-md-3" }, [
       _c(

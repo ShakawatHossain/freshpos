@@ -1,36 +1,14 @@
 <template>
   <div id="app" class="container">
-   <!--  <div class="col-md-3">
-      <table class="table table-striped table-hover table-bordered table-responsive">
-        <thead>
-          <tr>
-            <th colspan=3><center>List of Customers</center></th>
-          </tr>
-          <tr>
-            <th>Code</th>
-            <th>Name</th>
-            <th>phone</th>
-          </tr>
-        </thead>
-        <tr v-for="customer in customers" v-on:click="onCustomerClick(customer)">
-          <td> {{customer.code}} </td>
-          <td> {{customer.name}} </td>
-          <td> {{customer.phone}} </td>
-        </tr>
-      </table>
-    </div> -->
-
     <div class="col-md-6">
       <label>Enter customer name or mobile number and press enter</label>
-      <input type="text" v-model="searchcus" v-on:keyup.enter="searchcustomer" class="form-control" placeholder="mobile or name" />
+      <v-select class="form-control-select" placeholder="Select customer" label="name"  v-model="order.customer" :options="customers"/>
+      <!-- <input type="text" v-model="searchcus" v-on:keyup.enter="searchcustomer" class="form-control" placeholder="mobile or name" /> -->
       <hr/>
       <label>Enter Item code and press enter to add product into cart</label>
-      <input type="text" v-model="searchQuery" v-on:keyup.enter="search" class="form-control" placeholder="Item Code" />
+      <!-- <input type="text" v-model="searchQuery" v-on:keyup.enter="search" class="form-control" placeholder="Item Code" /> -->
+      <v-select taggable class="form-control-select" placeholder="Select product" label="code"  @option:created="search" :options="items"/>
       <br/>
-      <div class="row">
-        <div class="col-md-8"><label>Name:</label>{{ c_name }}</div>
-        <div class="col-md-4"><label>Phone:</label>{{ c_phone }}</div>
-      </div>
       </hr/>
       <table class="table table-striped table-hover table-bordered table-responsive">
         <thead>
@@ -183,6 +161,10 @@ export default {
   },
   methods: {
     placeorder: function(){
+      if(this.lineItems.length==0){
+        alert("Can't order with empty cart!");
+        return;
+      }
       this.order.lineItems = this.lineItems;
       this.order.grandTotal = this.grandTotal;
       this.order.status = 1;
@@ -200,6 +182,10 @@ export default {
                 })
     },
     creditorder: function(){
+      if(this.lineItems.length==0){
+        alert("Can't order with empty cart!");
+        return;
+      }
       this.order.lineItems = this.lineItems;
       this.order.grandTotal = this.grandTotal;
       this.order.status = 2;
@@ -218,6 +204,10 @@ export default {
                 })
     },
     holdorder: function(){
+      if(this.lineItems.length==0){
+        alert("Can't order with empty cart!");
+        return;
+      }
       this.order.lineItems = this.lineItems;
       this.order.grandTotal = this.grandTotal;
       this.order.status = 3;
@@ -236,7 +226,7 @@ export default {
     },
     loadhold:function(holder){
       // console.log(holder);
-      var getholder = axios.get('getsigleorder?id='+holder.id);
+      var getholder = axios.get('getsingleorder?id='+holder.id);
       getholder.then(response => {
           // console.log(response);
           this.c_name = response.data.name;
@@ -266,7 +256,7 @@ export default {
           this.lineItems.push({ item: item, numberOfItems: 1, editing: false });
       }
     },
-    toggleEdit: function(lineItem) {
+    toggleEdit: function(lineItem) {  
         lineItem.editing = !lineItem.editing;
     },
     removeItem: function(lineItem) {
@@ -288,14 +278,16 @@ export default {
         });
       }
     },
-    search(){
-      if(this.searchQuery){
+    search(event){
+      // console.log("Hello");
+      // if(this.searchQuery){
         this.items.filter((i)=>{
-          if(i.code.toLowerCase() === this.searchQuery.toLowerCase()){
+          // if(i.code.toLowerCase() === this.searchQuery.toLowerCase()){
+            if(i.code.toLowerCase() === event.code.toLowerCase()){
               this.onItemClick(i);
           }
         });
-      }
+      // }
     },
     roundToTwoDigitsAfterComma(floatNumber) {
       return parseFloat((Math.round(floatNumber * 100) / 100).toFixed(2));

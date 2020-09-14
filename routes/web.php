@@ -29,7 +29,7 @@ Route::post('order', 'OrderController@saveorder');
 Route::get('order/printinvoice', 'OrderController@printinvoice');
 Route::get('getorderlist', 'OrderController@getorderlist');
 Route::get('getholdorderlist', 'OrderController@getholdorderlist');
-Route::get('getsigleorder', 'OrderController@getSingleOrder');
+Route::get('getsingleorder', 'OrderController@getSingleOrder');
 
 
 
