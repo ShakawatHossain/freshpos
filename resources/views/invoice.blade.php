@@ -44,15 +44,18 @@ $html .='
     $html.='Hold';
 
  $html.='</td>
-  </tr>
-  <tr>
-    <td colspan="2">Phone no: '.$phn.'</td>
-    <td colspan="2">Email: '.$mail_address.'</td>
-  </tr>
-  <tr>
-    <td colspan="2">Address: '.$address.'</td>
-    <td colspan="2">City: '.$city.'</td>
-  </tr>
+  </tr>';
+  if($name !== "Walk In Customer"){
+    $html.='<tr>
+      <td colspan="2">Phone no: '.$phn.'</td>
+      <td colspan="2">Email: '.$mail_address.'</td>
+    </tr>
+    <tr>
+      <td colspan="2">Address: '.$address.'</td>
+      <td colspan="2">City: '.$city.'</td>
+    </tr>';
+  }
+  $html.='
 </table>
 <hr/>
 <center><h1>Details</h1></center>

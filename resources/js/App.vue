@@ -1,13 +1,16 @@
 <template>
   <div id="app" class="container">
-    <div class="col-md-6">
-      <label>Enter customer name or mobile number and press enter</label>
-      <v-select class="form-control-select" placeholder="Select customer" label="name"  v-model="order.customer" :options="customers"/>
-      <!-- <input type="text" v-model="searchcus" v-on:keyup.enter="searchcustomer" class="form-control" placeholder="mobile or name" /> -->
-      <hr/>
-      <label>Enter Item code and press enter to add product into cart</label>
-      <!-- <input type="text" v-model="searchQuery" v-on:keyup.enter="search" class="form-control" placeholder="Item Code" /> -->
-      <v-select taggable class="form-control-select" placeholder="Select product" label="code"  @option:created="search" :options="items"/>
+    <div class="col-md-8">
+      <div class="row">
+        <div class="col-md-6">
+          <label>Select customer name</label>
+          <v-select class="style-chooser" placeholder="Select customer" label="name"  v-model="order.customer" :options="customers"/>    
+        </div>
+        <div class="col-md-6">
+          <label>Select product name</label>
+          <v-select taggable class="style-chooser" placeholder="Select product" label="code"  @search:blur="search" :options="items" v-model="searchQuery"/>  
+        </div>
+      </div>  
       <br/>
       </hr/>
       <table class="table table-striped table-hover table-bordered table-responsive">
@@ -119,6 +122,23 @@
   </div>
 </template>
 
+<style>
+  .style-chooser .vs__search::placeholder,
+  .style-chooser .vs__dropdown-toggle,
+  .style-chooser .vs__dropdown-menu {
+    background: #dfe5fb;
+    border: none;
+    color: #394066;
+    text-transform: lowercase;
+    font-variant: small-caps;
+  }
+
+  .style-chooser .vs__clear,
+  .style-chooser .vs__open-indicator {
+    fill: #394066;
+  }
+</style>
+
 <script>
 import {bus} from "./app";
 export default {
@@ -132,7 +152,7 @@ export default {
       holdorders: [],
       lineItems: [],
       searchcus:null,
-      searchQuery:null,
+      searchQuery: null,
       c_name: "Select Customer",
       c_phone: "Select Customer",
       order: {
@@ -150,7 +170,8 @@ export default {
       const requestThree = axios.get('getorderlist');
       const requestFour = axios.get('getholdorderlist');
       requestOne.then(response => (this.items = response.data));
-      requestTwo.then(response => (this.customers = response.data));
+      requestTwo.then(response => {this.customers = response.data; this.order.customer = this.customers[0]; });
+      
       requestThree.then(response => (this.orders = response.data));
       requestFour.then(response => (this.holdorders = response.data));
       bus.$on('newcustomer',(data)=>{
@@ -279,15 +300,16 @@ export default {
       }
     },
     search(event){
-      // console.log("Hello");
-      // if(this.searchQuery){
+      console.log("Hello");
+      // console.log(event);
+      if(this.searchQuery){
         this.items.filter((i)=>{
-          // if(i.code.toLowerCase() === this.searchQuery.toLowerCase()){
-            if(i.code.toLowerCase() === event.code.toLowerCase()){
+          if(i.code.toLowerCase() === this.searchQuery.code.toLowerCase()){
+            // if(i.code.toLowerCase() === event.code.toLowerCase()){
               this.onItemClick(i);
           }
         });
-      // }
+      }
     },
     roundToTwoDigitsAfterComma(floatNumber) {
       return parseFloat((Math.round(floatNumber * 100) / 100).toFixed(2));

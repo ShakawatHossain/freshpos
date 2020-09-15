@@ -1,7 +1,7 @@
 <template>
   <div>
     <table class="table">
-      <tr v-if="customer.type=='Regular customer'">
+      <tr>
         <td>Code:</td>
         <td><input type="text" name="code" v-model="customer.code" ></td>
         <td>Email:</td>
@@ -10,20 +10,20 @@
       <tr>
         <td>Name:</td>
         <td><input type="text" name="code" v-model="customer.name"></td>
-        <td v-if="customer.type=='Regular customer'">City</td>
-        <td><input type="text" name="city" v-model="customer.city" v-if="customer.type=='Regular customer'"></td>
+        <td>City</td>
+        <td><input type="text" name="city" v-model="customer.city"></td>
       </tr>
-      <tr v-if="customer.type=='Regular customer'">
+      <tr>
         <td>Phone:</td>
         <td><input type="text" name="phone" v-model="customer.phone"></td>
         <td>Country</td>
         <td><input type="text" name="country"  v-model="customer.country"></td>
       </tr>
       <tr>
-        <td v-if="customer.type=='Regular customer'">Address:</td>
-        <td v-if="customer.type=='Regular customer'"><input type="text" name="address"  v-model="customer.address"></td>
+        <td>Address:</td>
+        <td><input type="text" name="address"  v-model="customer.address"></td>
         <td>Type</td>
-        <td><v-select class="form-control" label="Customer Type"  v-model="customer.type" :options="ctype"/></td>
+        <td><input type="text" v-model="customer.type"/></td>
       </tr>
       <tr>
         <td colspan="4"><button class="btn btn-primary float-right" v-on:click="creatCustomer()" data-dismiss="modal">SUBMIT</button></td>
@@ -38,7 +38,7 @@ import {bus} from "./app";
     
     data () {
       return {
-        ctype: ["WalkInCustomer","Regular customer"],
+        // ctype: ["WalkInCustomer","Regular customer"],
         customer: {
           id: 0,
           code: "",
@@ -48,7 +48,7 @@ import {bus} from "./app";
           phone: "",
           country: "",
           address: "",
-          type: "WalkInCustomer"
+          type: ""
         }
       }
     },
